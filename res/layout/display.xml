@@ -1,0 +1,14 @@
+
+<RelativeLayout android:id="@+id/relativeLayout1"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/background">
+	<ImageView android:src="@drawable/icon" android:id="@+id/DisplayImage"
+		android:layout_height="150dip" android:layout_width="150dip"
+		android:layout_centerInParent="true"></ImageView>
+	<TextView android:layout_width="wrap_content"
+		android:layout_above="@+id/DisplayImage" android:layout_height="wrap_content"
+		android:text="TextView" android:id="@+id/Title"
+		android:layout_alignLeft="@+id/DisplayImage"
+		android:layout_alignRight="@+id/DisplayImage"></TextView>
+</RelativeLayout>

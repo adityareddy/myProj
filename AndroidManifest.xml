@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.myProj" android:versionCode="1" android:versionName="1.0">
+
+
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+		<activity android:name=".SplashScreen" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name=".Preferences" android:label="@string/app_name"
+			android:theme="@android:style/Theme.Light"></activity>
+			
+		<activity android:name=".LoginActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+
+		<activity android:name=".myProjMain" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+
+		<activity android:name=".GridViewActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".GridViewChild" android:label="@string/app_name"
+			android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar"></activity>
+
+		<activity android:name=".ActivityOne" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".ActivityTwo" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".ActivityThree" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".ActivityOneChild" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".DetailsActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".TabGroupActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".jsonparsemain" android:launchMode="singleTop"
+			android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".ImageLoader" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+		<activity android:name=".RestClient" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar"></activity>
+	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>
