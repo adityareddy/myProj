@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -21,8 +22,12 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class jsonparsemain extends Activity {
 	ListView lv1;
@@ -38,11 +43,42 @@ public class jsonparsemain extends Activity {
 		setContentView(R.layout.list);
 
 		lv1 = (ListView) findViewById(R.id.listView1);
-
+		ShowProgress = ProgressDialog.show(jsonparsemain.this.getParent(),"",
+				 "Loading. Please wait...", true);
 		new loadingTask()
 				.execute("http://www.myappdemo.com/checkout/services/GetPlaces.php");
-//		 ShowProgress = ProgressDialog.show(jsonparsemain.this,"",
-//				 "Loading. Please wait...", true);
+	
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		TextView wtitle = (TextView)myProjMain.inst.findViewById(R.id.windowtitle);
+		ImageButton wicon  = (ImageButton)myProjMain.inst.findViewById(R.id.windowicon);
+		Button wbackbutton  = (Button)myProjMain.inst.findViewById(R.id.titlebutton);
+		
+		wtitle.setText("test");
+		wicon.setImageResource(R.drawable.settingsicon);
+		wicon.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent settingsActivity = new Intent(getBaseContext(),Preferences.class);
+				startActivity(settingsActivity);
+			
+			}
+		});
+		
+		wbackbutton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+				parentActivity.onBackPressed();
+				
+			}
+		});
+
 	}
 
 	public void jsonparser(String data) throws JSONException {
@@ -92,7 +128,7 @@ public class jsonparsemain extends Activity {
 
 			animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
 					0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-					Animation.RELATIVE_TO_SELF, -0.1f,
+					Animation.RELATIVE_TO_SELF, -0.5f,
 					Animation.RELATIVE_TO_SELF, 0.0f);
 			animation.setDuration(500);
 			set.addAnimation(animation);
@@ -118,12 +154,9 @@ public class jsonparsemain extends Activity {
 							previewMessage);
 					overridePendingTransition(android.R.anim.fade_in,
 							android.R.anim.fade_out);
-					// startActivity(new Intent(jsonparsemain.this,
-					// ActivityTwoChild.class));
-					// overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 				}
 			});
-			// ShowProgress.dismiss();
+			 ShowProgress.dismiss();
 
 		}
 	}
@@ -143,14 +176,20 @@ public class jsonparsemain extends Activity {
 	 * Overrides the default implementation for KeyEvent.KEYCODE_BACK so that
 	 * all systems call onBackPressed().
 	 */
+	public static final long Double_Press_Interval = 1000000000;
+	long lastPressTime;
+	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			long pressTime = System.nanoTime();
+			if(pressTime - lastPressTime >= Double_Press_Interval){
 			TabGroupActivity parentActivity = (TabGroupActivity) getParent();
 			parentActivity.onBackPressed();
+			}lastPressTime = pressTime;
+
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);
 	}
-
 }

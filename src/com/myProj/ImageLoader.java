@@ -16,6 +16,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class ImageLoader {
@@ -225,11 +227,13 @@ public class ImageLoader {
 		}
 
 		public void run() {
-			if (bitmap != null)
+			if (bitmap != null){
+				
+				imageView.setAnimation(AnimationUtils.loadAnimation(imageView.getContext(), android.R.anim.fade_in));
 				imageView.setImageBitmap(Bitmap.createScaledBitmap(
 						bitmap, height, width, false));
 
-			else
+			}else
 				imageView.setImageResource(stub_id);
 
 		}

@@ -1,6 +1,7 @@
 package com.myProj;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -12,6 +13,7 @@ public class Preferences extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		addPreferencesFromResource(R.layout.preferences);
 		// Get the custom preference
 		Preference customPref = (Preference) findPreference("customPref");
@@ -19,9 +21,19 @@ public class Preferences extends PreferenceActivity {
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 					public boolean onPreferenceClick(Preference preference) {
-						Toast.makeText(getBaseContext(),
-								"The custom preference has been clicked",
-								Toast.LENGTH_LONG).show();
+					    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);  
+					      
+					    String aEmailList[] = { "android-support@myproj.com" }; 
+					    
+					    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, aEmailList);  
+					    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "myProj 1.1.2");  
+					    emailIntent.setType("plain/text");  
+					    emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");  
+					      
+					    startActivity(emailIntent);  
+					    
+					    
+					    
 						SharedPreferences customSharedPreference = getSharedPreferences(
 								"myCustomSharedPrefs", Activity.MODE_PRIVATE);
 						SharedPreferences.Editor editor = customSharedPreference

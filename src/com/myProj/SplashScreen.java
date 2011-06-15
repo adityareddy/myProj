@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -24,7 +25,7 @@ public class SplashScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// Splash screen view
 		setContentView(R.layout.splash);
 
@@ -38,7 +39,7 @@ public class SplashScreen extends Activity {
 		set.addAnimation(animation);
 
 		animation = new AlphaAnimation(0.0f, 1.0f);
-		animation.setDuration(1500);
+		animation.setDuration(1000);
 		set.addAnimation(animation);
 
 		
@@ -56,7 +57,7 @@ public class SplashScreen extends Activity {
 				try {
 					synchronized (this) {
 						// Wait given period of time or exit on touch
-						wait(1000);
+						wait(2000);
 					}
 				} catch (InterruptedException ex) {
 				}

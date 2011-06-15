@@ -26,7 +26,8 @@
              android:layout_width="250px"
              android:layout_centerHorizontal="true"
              android:layout_below="@+id/username_text"
-             android:singleLine="true" />
+             android:singleLine="true" 
+             android:text="guest"/>
              
              
     <TextView android:id="@+id/password_text"
@@ -43,7 +44,8 @@
              android:layout_width="250px"
              android:layout_centerHorizontal="true"
              android:layout_below="@+id/password_text"
-             android:singleLine="true" />
+             android:singleLine="true"
+             android:text="guest" />
    
         <Button android:id="@+id/login_button"
                 android:text="Login!"

@@ -21,11 +21,17 @@ import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
@@ -35,25 +41,50 @@ public class ActivityOneChild extends Activity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+
 		setContentView(R.layout.list);
 		
+			
 		ArrayList<Integer> items=new ArrayList<Integer>();
 		
 		for (int i=0;i<25;i++) { items.add(i); }
 		
 		ListView lv = (ListView)findViewById(R.id.listView1);
 		lv.setAdapter(new DemoAdapter(items));
-		lv.setOnItemClickListener(new OnItemClickListener(){
-		    public void onItemClick(AdapterView<?> parent, View view,
-		            int position, long id) {
-		    	 Intent previewMessage = new Intent(getParent(), DetailsActivity.class);
-			        TabGroupActivity parentActivity = (TabGroupActivity)getParent();
-			        parentActivity.startChildActivity("ActivityTwoChild", previewMessage);
-			        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-//			        startActivity(new Intent(jsonparsemain.this, ActivityTwoChild.class));
-//			        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-		    }});
+		
 	}
+	@Override
+	public void onResume(){
+		super.onResume();
+		TextView wtitle = (TextView)myProjMain.inst.findViewById(R.id.windowtitle);
+		ImageButton wicon  = (ImageButton)myProjMain.inst.findViewById(R.id.windowicon);
+		Button wbackbutton  = (Button)myProjMain.inst.findViewById(R.id.titlebutton);
+		
+		wtitle.setText("test");
+		wicon.setImageResource(R.drawable.settingsicon);
+		wicon.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent settingsActivity = new Intent(getBaseContext(),Preferences.class);
+				startActivity(settingsActivity);
+			
+			}
+		});
+		
+		wbackbutton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+				parentActivity.onBackPressed();
+				
+			}
+		});
+
+	}
+
+
 	
 	class DemoAdapter extends EndlessAdapter {
 		private RotateAnimation rotate=null;
@@ -118,13 +149,20 @@ public class ActivityOneChild extends Activity {
      * Overrides the default implementation for KeyEvent.KEYCODE_BACK 
      * so that all systems call onBackPressed().
      */
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            TabGroupActivity parentActivity = (TabGroupActivity)getParent();
-            parentActivity.onBackPressed();
-            return true;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
+	public static final long Double_Press_Interval = 1000000000;
+	long lastPressTime;
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			long pressTime = System.nanoTime();
+			if(pressTime - lastPressTime >= Double_Press_Interval){
+			TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+			parentActivity.onBackPressed();
+			}lastPressTime = pressTime;
+
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
+	}
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal" android:layout_width="fill_parent"
+	android:layout_height="35dip" android:gravity="center_vertical"
+	android:paddingLeft="5dip" android:background="#323331">
+	<Button android:id="@+id/titlebutton" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/backbuttonString"></Button>
+	<ImageButton android:id="@+id/windowicon"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:layout_alignParentRight="true"></ImageButton>
+	<TextView android:gravity="center_vertical" android:text="TextView"
+		android:id="@+id/windowtitle" android:layout_width="wrap_content"
+		android:paddingRight="5dip" android:layout_alignParentTop="true"
+		android:layout_centerVertical="true" android:layout_centerHorizontal="true"
+		android:layout_height="match_parent" android:textSize="16dip"
+		android:textStyle="bold" android:capitalize="words"></TextView>
+</RelativeLayout>

@@ -1,7 +1,5 @@
 package com.myProj;
 
-import java.util.List;
-
 import com.myProj.R;
 
 import android.app.Activity;
@@ -22,8 +20,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.ads.*;
 
 public class myProjMain extends TabActivity {
 	/** Called when the activity is first created. */
@@ -31,11 +36,27 @@ public class myProjMain extends TabActivity {
 	public boolean connectivity;
 	Boolean noConnectivityD = false;
 	AlertDialog alrt;
+	TextView wtitle;ImageView wicon;
 
+	public static myProjMain inst;
+
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.main);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.windowtitle);
+		
+		myProjMain.inst = this;
+        
+//        // Request an ad
+//        AdRequest ad = new AdRequest();
+//        ad.setTesting(true);
+//        AdView adView = (AdView)findViewById(R.id.adView);
+//        adView.loadAd(ad);
+
+        
 		if (new Connectivity(myProjMain.this).isOnline()) {
 
 			IntentFilter filter = new IntentFilter();
@@ -93,14 +114,8 @@ public class myProjMain extends TabActivity {
 						alrt = new AlertDialog.Builder(context)
 								.setTitle("Connection Established")
 								.setMessage("Connection to Network Established")
-								.setPositiveButton("Ok",
-										new DialogInterface.OnClickListener() {
-											public void onClick(
-													DialogInterface dialog,
-													int whichButton) {
-
-											}
-										}).show();
+								.setIcon(R.drawable.arrowup)
+								.show();
 						noConnectivityD = !noConnectivityD;
 
 					}
@@ -144,7 +159,7 @@ public class myProjMain extends TabActivity {
 					.setContent(intent);
 			tabHost.addTab(spec);
 
-			tabHost.setCurrentTab(2);
+			tabHost.setCurrentTab(1);
 			setTabColor(tabHost);
 
 			tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
